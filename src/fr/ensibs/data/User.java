@@ -2,8 +2,12 @@ package fr.ensibs.data;
 
 import fr.ensibs.services.Roles;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.UUID;
 
+@XmlRootElement
 public class User {
     private int id;
     private String name;
@@ -12,6 +16,8 @@ public class User {
     private UUID uid;
 
     private static int nb = 0;
+
+    private User() {}
 
     public User(String name, String password, Roles role) {
         id = nb;
@@ -40,6 +46,7 @@ public class User {
         this.uid = UUID.randomUUID();
     }
 
+    @XmlTransient
     public UUID getUid() {
         return this.uid;
     }
@@ -48,6 +55,7 @@ public class User {
         return id;
     }
 
+    @XmlElement(name="name")
     public String getName() {
         return name;
     }
@@ -64,11 +72,16 @@ public class User {
         this.password = password;
     }
 
+    @XmlElement(name="role")
     public Roles getRole() {
         return role;
     }
 
     public void setRole(Roles role) {
         this.role = role;
+    }
+
+    public String toString() {
+        return this.getName() + " > " + this.getRole();
     }
 }

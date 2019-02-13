@@ -22,6 +22,8 @@ public class UserServiceImpl implements UserService {
         User usr = new User(username, password, role);
         this.users.put(usr.getId(), usr);
 
+        System.out.println("New user: "+usr);
+
         return true;
     }
 
@@ -31,6 +33,8 @@ public class UserServiceImpl implements UserService {
 
         if (u != null && u.verifyPassword(password)) {
             u.setUid();
+
+            System.out.println("User login: "+u);
         } else {
             throw new Exception("User/Password incorrect");
         }
@@ -52,6 +56,10 @@ public class UserServiceImpl implements UserService {
         User u = findUserByUID(uid);
         if (u != null && u.getRole() == Roles.ADMIN) {
             User us = this.users.remove(id);
+
+            if (us != null)
+                System.out.println("User removed "+us+" by "+u);
+
             return us != null;
         } else {
             throw new Exception("Not and admin");
@@ -64,6 +72,9 @@ public class UserServiceImpl implements UserService {
         if (u == null)
             return false;
         u.disconnect();
+
+        System.out.println("User disconnect "+u);
+
         return true;
     }
 
@@ -85,7 +96,7 @@ public class UserServiceImpl implements UserService {
         User user = null;
         Optional<User> any = this.users.values()
                 .stream()
-                .filter(u -> u.getUid().equals(UUID.fromString(uid)))
+                .filter(u -> u.getUid() != null && u.getUid().equals(UUID.fromString(uid)))
                 .findAny();
 
         if (any.isPresent()) {

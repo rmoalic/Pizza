@@ -2,6 +2,7 @@ package fr.ensibs.services;
 
 import fr.ensibs.data.User;
 
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.List;
 
