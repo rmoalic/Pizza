@@ -7,6 +7,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.UUID;
 
+/**
+ * An user of our pizza place !
+ */
 @XmlRootElement
 public class User {
     private int id;
@@ -19,6 +22,12 @@ public class User {
 
     private User() {}
 
+    /**
+     * Constructor
+     * @param name username
+     * @param password user password
+     * @param role user role
+     */
     public User(String name, String password, Roles role) {
         id = nb;
         nb++;
@@ -28,59 +37,90 @@ public class User {
         this.role = role;
     }
 
-    public boolean checkUid(UUID uid) throws Exception {
-        if (this.uid == null)
-            throw new Exception("User not logged in");
-        return this.uid.equals(uid);
-    }
-
+    /**
+     * Disconnect the user.
+     */
     public void disconnect() {
         this.uid = null;
     }
 
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
-
+    /**
+     * Connect the user with a new random token.
+     */
     public void setUid() {
         this.uid = UUID.randomUUID();
     }
 
+    /**
+     * Get the current login token.
+     * @return the login token
+     */
     @XmlTransient
     public UUID getUid() {
         return this.uid;
     }
 
+    /**
+     * Get the user identifier. Unique to an User instance
+     * @return the identifier
+     */
+    @XmlElement(name="id")
     public int getId() {
         return id;
     }
 
+    /**
+     * Get the user name
+     * @return user name
+     */
     @XmlElement(name="name")
     public String getName() {
         return name;
     }
 
+    /**
+     * Change the user name
+     * @param name new name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Check if the password is correct
+     * @param password the password to check against
+     * @return true if the user password and the password are equals
+     */
     public boolean verifyPassword(String password) {
         return this.password.equals(password);
     }
 
+    /**
+     * Change the user password
+     * @param password new password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Get user role
+     * @return the role
+     */
     @XmlElement(name="role")
     public Roles getRole() {
         return role;
     }
 
+    /**
+     * Change user role
+     * @param role new role
+     */
     public void setRole(Roles role) {
         this.role = role;
     }
 
+    @Override
     public String toString() {
         return this.getName() + " > " + this.getRole();
     }

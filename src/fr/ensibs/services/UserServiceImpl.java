@@ -5,10 +5,16 @@ import fr.ensibs.data.User;
 import javax.jws.WebService;
 import java.util.*;
 
+/**
+ * A service to manage users for our pizza place thing
+ */
 @WebService(endpointInterface="fr.ensibs.services.UserService", serviceName="UserService", portName="UserPort")
 public class UserServiceImpl implements UserService {
     private HashMap<Integer, User> users;
 
+    /**
+     * Constructor
+     */
     public UserServiceImpl() {
         this.users = new HashMap<>();
     }
