@@ -15,18 +15,26 @@ import fr.ensibs.data.User;
 @WebService(endpointInterface="fr.ensibs.services.OrderService", serviceName="OrderService", portName="OrderPort")
 public class OrderServiceImpl implements OrderService {
 	
+	UserServiceImpl userService;
+	
 	List<Pizza> pizzas = new ArrayList<>();
 	List<Commande> orders = new ArrayList<>();
+	
+	/**
+	 * Construct the order service
+	 * @param userService the user service
+	 */
+	public OrderServiceImpl(UserServiceImpl userService) {
+		this.userService = userService;
+	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean order(User user, Pizza pizza) {
-		if (user == null)
-			throw new NullPointerException("User is null");
-		else if (pizza == null)
-			throw new NullPointerException("Pizza is null");
+	public boolean order(String userUid, int pizzaId) {
+		User user = userService.findUserByUID(userUid);
+		Pizza pizza = this.findPizzaById(pizzaId);
 		Commande order = new Commande(user, pizza);
 		return this.orders.add(order);
 	}
@@ -56,10 +64,10 @@ public class OrderServiceImpl implements OrderService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Commande> getUserOrdersList(User user) {
+	public List<Commande> getUserOrdersList(int userId) {
 		List<Commande> list = new ArrayList<>();
 		for(Commande order : this.orders)
-			if(order.getUser() == user)
+			if(order.getUser().getId() == userId)
 				list.add(order);
 		return list;
 	}

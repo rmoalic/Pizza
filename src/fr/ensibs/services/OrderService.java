@@ -20,7 +20,7 @@ public interface OrderService {
 	 * @param pizza the ordered pizza
 	 * @return true if the order was made, false otherwise
 	 */
-	boolean order(User user, Pizza pizza);
+	boolean order(String userUid, int pizzaId);
 	
 	/**
 	 * Add a pizza to the list.
@@ -41,7 +41,7 @@ public interface OrderService {
 	 * @param user the user
 	 * @return the orders list
 	 */
-    List<Commande> getUserOrdersList(User user);
+    List<Commande> getUserOrdersList(int userId);
     
     /**
      * Get the pizza corresponding to the id.
