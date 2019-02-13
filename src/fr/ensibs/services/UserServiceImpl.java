@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-    private User findUser(String username) {
+    User findUser(String username) {
         User user = null;
         Optional<User> any = this.users.values()
                 .stream()
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    private User findUserByUID(String uid) {
+    User findUserByUID(String uid) {
         User user = null;
         Optional<User> any = this.users.values()
                 .stream()

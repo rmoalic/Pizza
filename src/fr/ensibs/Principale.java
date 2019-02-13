@@ -7,7 +7,8 @@ import javax.xml.ws.Endpoint;
 
 public class Principale {
     public static void main(String[] args) {
-        Endpoint.publish("http://localhost:9991/ws/userservice", new UserServiceImpl());
-        Endpoint.publish("http://localhost:9991/ws/orderservice", new OrderServiceImpl());
+        UserServiceImpl userService = new UserServiceImpl();
+        Endpoint.publish("http://localhost:9991/ws/userservice", userService);
+        Endpoint.publish("http://localhost:9991/ws/orderservice", new OrderServiceImpl(userService));
     }
 }
