@@ -64,8 +64,16 @@ public class Commande {
      * @return true if the order was paid, false otherwise
      */
     @XmlElement(name="paid")
-    public boolean getStatus() {
+    public boolean getPaid() {
     	return this.paid;
+    }
+    
+    /**
+     * Set the order paiement status.
+     * @param paid the order paiement status
+     */
+    public void setPaid(boolean paid) {
+    	this.paid = paid;
     }
 
 }
