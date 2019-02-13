@@ -41,7 +41,7 @@ public interface OrderService {
 	 * @param user the user
 	 * @return the orders list
 	 */
-    List<Commande> getUserOrdersList(int userId);
+    List<Commande> getUserOrdersList(String userUid);
     
     /**
      * Get the pizza corresponding to the id.

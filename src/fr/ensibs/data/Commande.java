@@ -2,6 +2,7 @@ package fr.ensibs.data;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Represents an order.
@@ -44,7 +45,7 @@ public class Commande {
      * Get the user who made the order.
      * @return the user
      */
-    @XmlElement(name="user")
+    @XmlTransient
     public User getUser() {
     	return this.user;
     }

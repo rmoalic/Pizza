@@ -17,8 +17,8 @@ public class OrderServiceImpl implements OrderService {
 	
 	UserServiceImpl userService;
 	
-	List<Pizza> pizzas = new ArrayList<>();
-	List<Commande> orders = new ArrayList<>();
+	private List<Pizza> pizzas = new ArrayList<>();
+	private List<Commande> orders = new ArrayList<>();
 	
 	/**
 	 * Construct the order service
@@ -34,6 +34,8 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public boolean order(String userUid, int pizzaId) {
 		User user = userService.findUserByUID(userUid);
+		if(user == null || user.getRole() != Roles.CUSTOMER)
+			throw new NullPointerException("user not authorized");
 		Pizza pizza = this.findPizzaById(pizzaId);
 		Commande order = new Commande(user, pizza);
 		return this.orders.add(order);
@@ -64,10 +66,13 @@ public class OrderServiceImpl implements OrderService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Commande> getUserOrdersList(int userId) {
+	public List<Commande> getUserOrdersList(String userUid) {
+		User user = userService.findUserByUID(userUid);
+		if(user == null || user.getRole() != Roles.CUSTOMER)
+			throw new NullPointerException("user not authorized");
 		List<Commande> list = new ArrayList<>();
 		for(Commande order : this.orders)
-			if(order.getUser().getId() == userId)
+			if(order.getUser().getId() == user.getId())
 				list.add(order);
 		return list;
 	}
