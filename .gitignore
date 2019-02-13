@@ -3,3 +3,5 @@
 *.jar
 .project
 .classpath
+Pizza.iml
+/.idea/
