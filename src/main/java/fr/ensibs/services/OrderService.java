@@ -12,7 +12,7 @@ import fr.ensibs.data.Pizza;
 /**
  * Represents the order web service.
  */
-@SOAPBinding(style = SOAPBinding.Style.RPC)
+@SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
 @WebService(name = "OrderService", targetNamespace="Pizza")
 public interface OrderService {
 	
