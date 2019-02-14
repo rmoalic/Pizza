@@ -16,19 +16,20 @@ public interface OrderService {
 	
 	/**
 	 * Make a pizza order for a user.
-	 * @param user the user who made the order
-	 * @param pizza the ordered pizza
+	 * @param userUid the user token
+	 * @param pizzaId the pizza id
 	 * @return true if the order was made, false otherwise
 	 */
 	boolean order(String userUid, int pizzaId);
 	
 	/**
 	 * Add a pizza to the list.
+	 * @param userUid the user token
 	 * @param name the pizza name
 	 * @param price the pizza price
 	 * @return true if the pizza was added, false otherwise
 	 */
-	boolean addPizza(String name, int price);
+	boolean addPizza(String userUid, String name, int price);
 	
 	/**
 	 * Get the pizzas list.
@@ -38,16 +39,9 @@ public interface OrderService {
 	
 	/**
 	 * Get the orders list for a user.
-	 * @param user the user
+	 * @param userUid the user token
 	 * @return the orders list
 	 */
     List<Commande> getUserOrdersList(String userUid);
-    
-    /**
-     * Get the pizza corresponding to the id.
-     * @param id the pizza id
-     * @return the corresponding pizza
-     */
-    Pizza findPizzaById(int id);
 
 }

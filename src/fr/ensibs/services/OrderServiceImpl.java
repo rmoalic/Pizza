@@ -45,8 +45,11 @@ public class OrderServiceImpl implements OrderService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean addPizza(String name, int price) {
-		if (name.isEmpty())
+	public boolean addPizza(String userUid, String name, int price) {
+		User user = userService.findUserByUID(userUid);
+		if(user == null || user.getRole() != Roles.ADMIN)
+			throw new NullPointerException("user not authorized");
+		else if (name.isEmpty())
 			throw new NullPointerException("name is empty");
 		else if (price < 0)
 			throw new NullPointerException("price is negative");
@@ -78,10 +81,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Pizza findPizzaById(int id) {
+     * Get the pizza corresponding to the id.
+     * @param id the pizza id
+     * @return the corresponding pizza
+     */
+	Pizza findPizzaById(int id) {
 		for(Pizza pizza : this.pizzas)
 			if(pizza.getId() == id)
 				return pizza;
