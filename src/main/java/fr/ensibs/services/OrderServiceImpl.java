@@ -10,7 +10,7 @@ import fr.ensibs.data.Pizza;
 import fr.ensibs.data.User;
 
 /**
- * {@inheritDoc}
+ * Represents the order web service.
  */
 @WebService(endpointInterface="fr.ensibs.services.OrderService", serviceName="OrderService", portName="OrderPort")
 public class OrderServiceImpl implements OrderService {
