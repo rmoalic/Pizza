@@ -2,12 +2,16 @@ package fr.ensibs.services;
 
 import fr.ensibs.data.User;
 
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
-import java.util.List;
+import javax.jws.soap.SOAPBinding;
+import java.util.ArrayList;
 
 /**
  * A service to manage users for our pizza place thing
  */
+@SOAPBinding(style = SOAPBinding.Style.RPC)
 @WebService(name = "UserService", targetNamespace="Pizza")
 public interface UserService {
     /**
@@ -18,7 +22,8 @@ public interface UserService {
      * @return true if the user is registered
      * @throws Exception if the user cannot be registered
      */
-    boolean register(String username, String password, Roles role) throws Exception;
+    @WebMethod(operationName = "register")
+    boolean register(@WebParam(name="username") String username, @WebParam(name="password") String password, @WebParam(name="role") Roles role) throws Exception;
 
     /**
      * Log a new user in. A token will be generated.
@@ -28,7 +33,8 @@ public interface UserService {
      * @return the session token
      * @throws Exception if the user cannot log in
      */
-    String login(String username, String password) throws Exception;
+    @WebMethod(operationName = "login")
+    String login(@WebParam(name="username") String username, @WebParam(name="password") String password) throws Exception;
 
     /**
      * (Admin only) List all users. (name, role and id)
@@ -36,7 +42,8 @@ public interface UserService {
      * @return user list (names, roles and id)
      * @throws Exception if the user is not and admin
      */
-    List<User> getUsersList(String uid) throws Exception;
+    @WebMethod(operationName = "getUsersList")
+    ArrayList<User> getUsersList(@WebParam(name="uid") String uid) throws Exception;
 
     /**
      * Delete a user.
@@ -45,12 +52,14 @@ public interface UserService {
      * @return true if the user was deleted
      * @throws Exception if the user cannot be deleted
      */
-    boolean deleteUser(String uid, int id) throws Exception;
+    @WebMethod(operationName = "deleteUser")
+    boolean deleteUser(@WebParam(name="uid") String uid, @WebParam(name="idUser")int id) throws Exception;
 
     /**
      * Disconnect the user
      * @param uid session token
      * @return true if the user was disconnected
      */
-    boolean disconnect(String uid);
+    @WebMethod(operationName = "disconnect")
+    boolean disconnect(@WebParam(name="uid") String uid);
 }

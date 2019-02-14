@@ -1,10 +1,14 @@
 package fr.ensibs.services;
 
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
 
 /**
  * The payement service for our pizza place thing
  */
+@SOAPBinding(style = SOAPBinding.Style.RPC)
 @WebService(name = "PayementService", targetNamespace="Pizza")
 public interface PayementService {
     /**
@@ -12,12 +16,14 @@ public interface PayementService {
      * @param uid session token
      * @return the total to pay in €
      */
-    int getTotal(String uid);
+    @WebMethod(operationName = "getTotal")
+    int getTotal(@WebParam(name="uid") String uid);
 
     /**
      * Mark all the pizzas as payed
      * @param uid session token
      * @return true
      */
-    boolean payTotal(String uid);
+    @WebMethod(operationName = "payTotal")
+    boolean payTotal(@WebParam(name="uid") String uid);
 }
