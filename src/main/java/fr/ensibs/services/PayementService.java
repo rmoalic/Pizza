@@ -8,7 +8,7 @@ import javax.jws.soap.SOAPBinding;
 /**
  * The payement service for our pizza place thing
  */
-@SOAPBinding(style = SOAPBinding.Style.RPC)
+@SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
 @WebService(name = "PayementService", targetNamespace="Pizza")
 public interface PayementService {
     /**
@@ -17,7 +17,7 @@ public interface PayementService {
      * @return the total to pay in €
      */
     @WebMethod(operationName = "getTotal")
-    int getTotal(@WebParam(name="uid") String uid);
+    int getTotal(@WebParam(name="customerUID") String uid);
 
     /**
      * Mark all the pizzas as payed
@@ -25,5 +25,5 @@ public interface PayementService {
      * @return true
      */
     @WebMethod(operationName = "payTotal")
-    boolean payTotal(@WebParam(name="uid") String uid);
+    boolean payTotal(@WebParam(name="customerUID") String uid);
 }
