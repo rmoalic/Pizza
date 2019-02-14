@@ -2,7 +2,10 @@ package fr.ensibs.services;
 
 import fr.ensibs.data.User;
 
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
 import java.util.*;
 
 /**
@@ -24,6 +27,9 @@ public class UserServiceImpl implements UserService {
         User u = findUser(username);
         if (u != null)
             throw new Exception("User already exist");
+
+        if (role == null)
+            throw new Exception("role must be ADMIN or CUSTOMER");
 
         User usr = new User(username, password, role);
         this.users.put(usr.getId(), usr);
@@ -49,7 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsersList(String uid) throws Exception {
+    public ArrayList<User> getUsersList(String uid) throws Exception {
         User u = findUserByUID(uid);
         if (u != null && u.getRole() == Roles.ADMIN)
             return new ArrayList<>(this.users.values());
