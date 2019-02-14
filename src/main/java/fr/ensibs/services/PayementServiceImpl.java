@@ -1,6 +1,7 @@
 package fr.ensibs.services;
 
 import fr.ensibs.data.Commande;
+import fr.ensibs.data.User;
 
 import javax.jws.WebService;
 
@@ -23,6 +24,10 @@ public class PayementServiceImpl implements PayementService {
 
     @Override
     public int getTotal(String uid) {
+        User user = this.osi.userService.findUserByUID(uid);
+        if(user == null || user.getRole() != Roles.ADMIN)
+            throw new NullPointerException("user not authorized");
+
         int sum = 0;
         for (Commande c : this.osi.getUserOrdersList(uid)) {
             if (!c.getPaid())
@@ -34,6 +39,10 @@ public class PayementServiceImpl implements PayementService {
 
     @Override
     public boolean payTotal(String uid) {
+        User user = this.osi.userService.findUserByUID(uid);
+        if(user == null || user.getRole() != Roles.ADMIN)
+            throw new NullPointerException("user not authorized");
+        
         for (Commande c : this.osi.getUserOrdersList(uid)) {
             c.setPaid(true);
         }
