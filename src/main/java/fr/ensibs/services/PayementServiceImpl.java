@@ -11,6 +11,7 @@ import javax.jws.WebService;
 public class PayementServiceImpl implements PayementService {
     private OrderServiceImpl osi;
 
+    public PayementServiceImpl() {}
 
     /**
      * Constructor

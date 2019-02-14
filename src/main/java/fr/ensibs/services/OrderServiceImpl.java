@@ -19,7 +19,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	private List<Pizza> pizzas = new ArrayList<>();
 	private List<Commande> orders = new ArrayList<>();
-	
+
+	public OrderServiceImpl() {}
+
 	/**
 	 * Construct the order service
 	 * @param userService the user service
