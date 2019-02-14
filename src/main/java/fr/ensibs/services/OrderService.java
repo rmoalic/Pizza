@@ -1,16 +1,18 @@
 package fr.ensibs.services;
 
-import java.util.List;
+import java.util.ArrayList;
 
+import javax.jws.WebParam;
 import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
 
 import fr.ensibs.data.Commande;
 import fr.ensibs.data.Pizza;
-import fr.ensibs.data.User;
 
 /**
  * Represents the order web service.
  */
+@SOAPBinding(style = SOAPBinding.Style.RPC)
 @WebService(name = "OrderService", targetNamespace="Pizza")
 public interface OrderService {
 	
@@ -20,7 +22,7 @@ public interface OrderService {
 	 * @param pizzaId the pizza id
 	 * @return true if the order was made, false otherwise
 	 */
-	boolean order(String userUid, int pizzaId);
+	boolean order(@WebParam(name="customerUID") String userUid, @WebParam(name="pizzaID") int pizzaId);
 	
 	/**
 	 * Add a pizza to the list.
@@ -29,19 +31,19 @@ public interface OrderService {
 	 * @param price the pizza price
 	 * @return true if the pizza was added, false otherwise
 	 */
-	boolean addPizza(String userUid, String name, int price);
+	boolean addPizza(@WebParam(name="adminUID") String userUid, @WebParam(name="pizzaName") String name, @WebParam(name="pizzaPrice") int price);
 	
 	/**
 	 * Get the pizzas list.
 	 * @return the pizza list
 	 */
-	List<Pizza> getPizzasList();
+	ArrayList<Pizza> getPizzasList();
 	
 	/**
 	 * Get the orders list for a user.
 	 * @param userUid the user token
 	 * @return the orders list
 	 */
-    List<Commande> getUserOrdersList(String userUid);
+    ArrayList<Commande> getUserOrdersList(@WebParam(name="customerUID") String userUid);
 
 }

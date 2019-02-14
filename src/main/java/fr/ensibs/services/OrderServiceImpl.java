@@ -1,8 +1,6 @@
 package fr.ensibs.services;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.jws.WebService;
 
 import fr.ensibs.data.Commande;
@@ -10,15 +8,15 @@ import fr.ensibs.data.Pizza;
 import fr.ensibs.data.User;
 
 /**
- * {@inheritDoc}
+ * Represents the order web service.
  */
 @WebService(endpointInterface="fr.ensibs.services.OrderService", serviceName="OrderService", portName="OrderPort")
 public class OrderServiceImpl implements OrderService {
 	
 	UserServiceImpl userService;
 	
-	private List<Pizza> pizzas = new ArrayList<>();
-	private List<Commande> orders = new ArrayList<>();
+	private ArrayList<Pizza> pizzas = new ArrayList<>();
+	private ArrayList<Commande> orders = new ArrayList<>();
 
 	public OrderServiceImpl() {}
 
@@ -63,7 +61,7 @@ public class OrderServiceImpl implements OrderService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Pizza> getPizzasList() {
+	public ArrayList<Pizza> getPizzasList() {
 		return this.pizzas;
 	}
 
@@ -71,11 +69,11 @@ public class OrderServiceImpl implements OrderService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Commande> getUserOrdersList(String userUid) {
+	public ArrayList<Commande> getUserOrdersList(String userUid) {
 		User user = userService.findUserByUID(userUid);
 		if(user == null || user.getRole() != Roles.CUSTOMER)
 			throw new NullPointerException("user not authorized");
-		List<Commande> list = new ArrayList<>();
+		ArrayList<Commande> list = new ArrayList<>();
 		for(Commande order : this.orders)
 			if(order.getUser().getId() == user.getId())
 				list.add(order);
