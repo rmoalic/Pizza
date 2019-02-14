@@ -1,15 +1,21 @@
 package fr.ensibs.services;
 
 import fr.ensibs.data.Commande;
-import fr.ensibs.data.User;
 
 import javax.jws.WebService;
 
+/**
+ * The payement service for our pizza place thing
+ */
 @WebService(endpointInterface="fr.ensibs.services.PayementService", serviceName="PayementService", portName="PayementPort")
 public class PayementServiceImpl implements PayementService {
     private OrderServiceImpl osi;
 
 
+    /**
+     * Constructor
+     * @param osi the Order service
+     */
     public PayementServiceImpl(OrderServiceImpl osi) {
         this.osi = osi;
     }
