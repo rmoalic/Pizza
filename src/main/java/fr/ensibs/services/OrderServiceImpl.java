@@ -14,17 +14,22 @@ import fr.ensibs.data.User;
 public class OrderServiceImpl implements OrderService {
 	
 	UserServiceImpl userService;
+	public  static OrderServiceImpl instance;
 	
 	private ArrayList<Pizza> pizzas = new ArrayList<>();
 	private ArrayList<Commande> orders = new ArrayList<>();
 
-	public OrderServiceImpl() {}
+	public OrderServiceImpl() {
+		OrderServiceImpl.instance = this;
+		this.userService = UserServiceImpl.instance;
+	}
 
 	/**
 	 * Construct the order service
 	 * @param userService the user service
 	 */
 	public OrderServiceImpl(UserServiceImpl userService) {
+		OrderServiceImpl.instance = this;
 		this.userService = userService;
 	}
 

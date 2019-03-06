@@ -13,6 +13,7 @@ import java.util.*;
  */
 @WebService(endpointInterface="fr.ensibs.services.UserService", serviceName="UserService", portName="UserPort")
 public class UserServiceImpl implements UserService {
+    public static UserServiceImpl instance;
     private HashMap<Integer, User> users;
 
     /**
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService {
      */
     public UserServiceImpl() {
         this.users = new HashMap<>();
+        UserServiceImpl.instance = this;
     }
 
     @Override

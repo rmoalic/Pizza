@@ -2,13 +2,13 @@
 
 <endpoints xmlns='http://java.sun.com/xml/ns/jax-ws/ri/runtime' version='2.0'>
     <endpoint
-        name='orderservice'
-        implementation='fr.ensibs.services.OrderServiceImpl'
-        url-pattern='/orderservice'/>
-    <endpoint
             name='userservice'
             implementation='fr.ensibs.services.UserServiceImpl'
             url-pattern='/userservice'/>
+    <endpoint
+        name='orderservice'
+        implementation='fr.ensibs.services.OrderServiceImpl'
+        url-pattern='/orderservice'/>
     <endpoint
             name='payementservice'
             implementation='fr.ensibs.services.PayementServiceImpl'

@@ -10,9 +10,13 @@ import javax.jws.WebService;
  */
 @WebService(endpointInterface="fr.ensibs.services.PayementService", serviceName="PayementService", portName="PayementPort")
 public class PayementServiceImpl implements PayementService {
+    public static PayementServiceImpl instance;
     private OrderServiceImpl osi;
 
-    public PayementServiceImpl() {}
+    public PayementServiceImpl() {
+        PayementServiceImpl.instance = this;
+        this.osi = OrderServiceImpl.instance;
+    }
 
     /**
      * Constructor
@@ -20,6 +24,7 @@ public class PayementServiceImpl implements PayementService {
      */
     public PayementServiceImpl(OrderServiceImpl osi) {
         this.osi = osi;
+        PayementServiceImpl.instance = this;
     }
 
     @Override
